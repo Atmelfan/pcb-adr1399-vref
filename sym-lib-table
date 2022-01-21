@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name "adr1399")(type "KiCad")(uri "${KIPRJMOD}/libraries/adr1399.kicad_sym")(options "")(descr ""))
+  (lib (name "pomona")(type "KiCad")(uri "${KIPRJMOD}/libraries/pomona.kicad_sym")(options "")(descr ""))
+  (lib (name "hammond")(type "KiCad")(uri "${KIPRJMOD}/libraries/hammond.kicad_sym")(options "")(descr ""))
+  (lib (name "cal-test-electronics")(type "KiCad")(uri "${KIPRJMOD}/libraries/cal-test-electronics.kicad_sym")(options "")(descr ""))
+)

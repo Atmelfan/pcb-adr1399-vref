@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "pomona")(type "KiCad")(uri "${KIPRJMOD}/libraries/pomona.pretty")(options "")(descr ""))
+  (lib (name "cal-test-electronics")(type "KiCad")(uri "${KIPRJMOD}/libraries/cal-test-electronics.pretty")(options "")(descr ""))
+)
