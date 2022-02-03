@@ -143,6 +143,17 @@ jobs:
         with:
           name: ${{ env.OutputFolder }}
           path: ${{ env.OutputFolder }}/**
+      
+      # Deploy interactive BOM to pages
+      - name: Create index
+        run: |
+          ln -s ${{ env.OutputFolder }}/docs/bom/${{ env.Project }}-ibom.html ${{ env.OutputFolder }}/index.html
+      
+      - name: Deploy pages
+        uses: JamesIves/github-pages-deploy-action@v4.2.3
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: ${{ env.OutputFolder }} # The folder the action should deploy.
 
 
   Publish:
@@ -170,27 +181,6 @@ jobs:
         run: zip -qq -j "${{ env.Project }}-AISLER.zip" gerbers/*.* docs/bom/*.csv
       - name: Zip documentation and fabrications
         run: zip -qq -r "${{ env.Project }}.zip" docs cad img *.zip
-
-      # Deploy interactive BOM to pages
-      - name: Create index
-        run: |
-          cat <<EOF > ${{ github.workspace }}/index.html
-          <!doctype html>
-          <html>
-            <head>
-              <title>${{ env.Project }} - ${{ github.ref }}</title>
-            </head>
-            <body>
-              <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
-            </body>
-          </html>
-          EOF
-      
-      - name: Deploy pages
-        uses: JamesIves/github-pages-deploy-action@v4.2.3
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: ${{ github.workspace }} # The folder the action should deploy.
 
       # Upload all the zip files to the release.
       - name: Upload release files
