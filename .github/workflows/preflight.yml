@@ -51,7 +51,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        submodules: 'recursive'
+        with:
+          submodules: 'recursive'
 
       # Get the commit hash.
       - name: Get GitHub commit hash
