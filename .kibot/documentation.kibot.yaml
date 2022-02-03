@@ -75,7 +75,5 @@ import:
   - file: includes/cad.kibot.yaml
   - file: includes/docs.kibot.yaml
   - file: includes/plot_jlcpcb-green-enig.kibot.yaml
-  - file: includes/plot_jlcpcb-green-hasl.kibot.yaml
-  - file: includes/plot_oshpark-afterdark.kibot.yaml
   - file: includes/plot_oshpark-purple.kibot.yaml
   - file: includes/render.kibot.yaml
