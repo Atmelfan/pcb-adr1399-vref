@@ -106,6 +106,16 @@ jobs:
           replace: ${{ steps.get_date.outputs.date }}
 
       # Actually run KiBot to generate all the files.
+      - name: Run ERC and DRC
+        uses: INTI-CMNB/KiBot@master
+        if: ${{ success() }}
+        with:
+          config: .kibot/preflight.kibot.yaml
+          dir: ${{ env.OutputFolder }}
+          schema: ${{ env.Project }}.kicad_sch
+          board: ${{ env.Project }}.kicad_pcb
+      
+      # Actually run KiBot to generate all the files.
       - name: Generate documentation files
         uses: INTI-CMNB/KiBot@master
         if: ${{ success() }}
@@ -114,10 +124,11 @@ jobs:
           dir: ${{ env.OutputFolder }}
           schema: ${{ env.Project }}.kicad_sch
           board: ${{ env.Project }}.kicad_pcb
-
+      
       # Archive all the artifacts from output and attach to the action's results.
-      - name: Archive logfile artifacts
+      - name: Archive production artifacts
         uses: actions/upload-artifact@v2
+        if: ${{ always() }}
         with:
-          name: ${{ env.Project }}-${{ steps.vars.outputs.commit }}-preflight
-          path: ${{ env.OutputFolder }}/**.txt
+          name: ${{ env.OutputFolder }}-preflight
+          path: ${{ env.OutputFolder }}/**
