@@ -47,3 +47,6 @@ preflight:
     - filter: 'Footprint has no courtyard defined'
       error: '46'
       regex: 'Footprint LOGO'
+    - filter: 'Ignore U1 pad 1 too close to starground'
+      error: '4'
+      regex:  'Through hole pad 1 [/ZS+] of U1'
