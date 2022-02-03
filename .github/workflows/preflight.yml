@@ -64,11 +64,6 @@ jobs:
         id: get_commit
         run: echo "::set-output name=commit::$(git rev-parse --short HEAD)"
 
-      # Get the current date and time, in the timezone specified above, for use later.
-      - name: Get current date and time
-        id: get_date
-        run: echo "::set-output name=date::$(TZ='${{ env.Timezone }}' date +'%Y-%m-%d %T')"
-
       # Run KiBot with the preflight script
       - name: Run ERC/DRC
         uses: INTI-CMNB/KiBot@master
@@ -77,55 +72,8 @@ jobs:
           dir: ${{ env.OutputFolder }}
           schema: ${{ env.Project }}.kicad_sch
           board: ${{ env.Project }}.kicad_pcb
-          verbose: 3
+          #verbose: 3
 
-      # do string replacement in schematic files
-      - name: Set schematic version
-        uses: jacobtomlinson/gha-find-replace@v1
-        with:
-          include: ".*.kicad_sch"
-          find: "%%version%%"
-          replace: ${{ steps.get_commit.outputs.commit }}
-        
-      - name: Set schematic date
-        uses: jacobtomlinson/gha-find-replace@v1
-        with:
-          include: ".*.kicad_sch"
-          find: "%%date%%"
-          replace: ${{ steps.get_date.outputs.date }}
-
-      # do string replacement in design files
-      - name: Set PCB version
-        uses: jacobtomlinson/gha-find-replace@v1
-        with:
-          include: ".*.kicad_pcb"
-          find: "%%version%%"
-          replace: ${{ steps.get_commit.outputs.commit }}
-        
-      - name: Set PCB date in page settings
-        uses: jacobtomlinson/gha-find-replace@v1
-        with:
-          include: ".*.kicad_pcb"
-          find: "date %%date%%"
-          replace: 'date "${{ steps.get_date.outputs.date }}"'
-        
-      - name: Set PCB date on PCB layers
-        uses: jacobtomlinson/gha-find-replace@v1
-        with:
-          include: ".*.kicad_pcb"
-          find: "%%date%%"
-          replace: ${{ steps.get_date.outputs.date }}
-
-      # Run KiBot with documentation script
-      - name: Generate documentation files
-        uses: INTI-CMNB/KiBot@master
-        with:
-          verbose: 3
-          config: .kibot/documentation.kibot.yaml
-          dir: ${{ env.OutputFolder }}
-          schema: ${{ env.Project }}.kicad_sch
-          board: ${{ env.Project }}.kicad_pcb
-      
       # Archive all the artifacts from output and attach to the action's results.
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
@@ -133,28 +81,4 @@ jobs:
         with:
           name: ${{ env.OutputFolder }}
           path: ${{ env.OutputFolder }}/**
-      
-  Document:
-    runs-on: ubuntu-latest
-    needs: Kibot
 
-    steps:
-      # Get artifacts of privious jobs
-      - uses: actions/download-artifact@v2
-        with:
-          name: ${{ env.OutputFolder }}
-
-      - name: Commit files
-        run: |
-          git config --local user.email "kibot+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          cp -r ${{ env.OutputFolder }}/docs .
-          rm -f ./docs/*.ogv ./docs/*.log
-          git add docs
-          git commit -m "Update documentation"
-    
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
