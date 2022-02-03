@@ -52,6 +52,9 @@ preflight:
     - filter: 'Footprint has no courtyard defined'
       error: '46'
       regex: 'Footprint LOGO'
+    - filter: 'Ignore U1 pad 1 too close to starground'
+      error: 'clearance'
+      regex:  'Through hole pad 1 .* of U1'
 
 global:
   # Sets the default output filename for all generated files. You likely don't have to change this.
