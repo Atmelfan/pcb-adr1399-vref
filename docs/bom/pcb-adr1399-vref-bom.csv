@@ -1,0 +1,15 @@
+References;Description;Part;Value;Qty;size;type;digikey#;mpn;color;tolerance
+C2 C4;Unpolarized capacitor;C;100n;2;0805;X7R;;;;
+C3;Unpolarized capacitor;C;1u;1;0805;X7R;;;;
+C1;Unpolarized capacitor;C;10u;1;1206;X5R;;;;
+ENCLOSURE1;"Box Metal, Aluminum; Plastic Natural End Panel(s) 2.362"" L x 1.673"" W (60.00mm x 42.50mm) X 0.906"" (23.00mm)";1455D602;1455D602;1;;;HM1354-ND;1455D602;;
+J1;DC Barrel Jack with an internal switch;Barrel_Jack_Switch;Barrel_Jack_Switch;1;;;839-1513-ND;54-00130;;
+J3;Banana Jack Connector Standard Banana Solder Red;CT3151SP-0;CT3151SP-0;1;;;BKCT3151SP-0-ND;CT3151SP-0;BLACK;
+J2;Banana Jack Connector Standard Banana Solder Red;CT3151SP-2;CT3151SP-2;1;;;BKCT3151SP-2-ND;CT3151SP-2;RED;
+R2;Resistor;R;5R1;1;0805;;;;;
+R3;Resistor;R;5K;1;0805;;;;;
+R5;Resistor;R;8K8;1;0805;;;;;0.1%
+R4;Resistor;R;19K;1;0805;;;;;0.1%
+R1;Resistor;R;200K;1;0805;;;;;
+U1;Oven-Compensated, Buried Zener, 7.05 V Voltage Reference;ADR1399;ADR1399;1;;;;;;
+U2;Single Picoamp Input Current, Microvolt Offset, Low Noise Op Amp, DIP-8/SOIC-8/TO-5-8;LT1012;LT1012;1;;;LT1012ACS8#PBF-ND;LT1012ACS8#PBF;;

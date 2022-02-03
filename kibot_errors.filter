@@ -1,0 +1,6 @@
+# Courtyards overlap
+45,Courtyards overlap
+# Footprint has no courtyard defined
+46,Footprint LOGO
+# Ignore U1 pad 1 too close to starground
+clearance,Through hole pad 1 .* of U1

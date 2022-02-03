@@ -1,0 +1,14 @@
+** Drc report for /github/workspace/pcb-adr1399-vref.kicad_pcb **
+** Created on 2022-02-03 20:37:02 **
+
+** Found 1 DRC violations **
+[clearance]: Clearance violation (netclass 'Default' clearance 0.2000 mm; actual 0.1800 mm)
+    Rule: netclass 'Default'; Severity: error
+    @(89.2700 mm, 110.5000 mm): Through hole pad 1 [/ZS+] of U1
+    @(-1.0000 mm, -0.2500 mm): Polygon on F.Cu
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** End of Report **

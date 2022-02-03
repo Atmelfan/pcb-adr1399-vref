@@ -1,0 +1,25 @@
+Drill report for pcb-adr1399-vref.kicad_pcb
+Created on Thu Feb  3 20:37:09 2022
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  B.Cu                      back
+
+
+Drill file 'pcb-adr1399-vref-PTH.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.400mm  0.0157"  (6 holes)
+    T2  0.700mm  0.0276"  (4 holes)
+    T3  0.800mm  0.0315"  (3 holes)  (with 3 slots)
+    T4  1.600mm  0.0630"  (8 holes)
+
+    Total plated holes count 21
+
+
+Drill file 'pcb-adr1399-vref-NPTH.drl' contains
+    unplated through holes:
+    =============================================================
+
+    Total unplated holes count 0
