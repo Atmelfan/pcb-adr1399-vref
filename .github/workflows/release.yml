@@ -60,7 +60,7 @@ jobs:
       - name: Update system repositories
         run:  |
           apt update
-          apt -y install git
+          apt -y install git rsync
 
       # Check out the files
       - uses: actions/checkout@v2
