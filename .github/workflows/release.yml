@@ -165,6 +165,8 @@ jobs:
         run: zip -qq -j "${{ env.Project }}-Oshpark.zip" gerbers/*.* docs/bom/*.csv
       - name: Zip PCBWay fabrication files
         run: zip -qq -j "${{ env.Project }}-PCBWay.zip" gerbers/*.* docs/bom/*.csv
+      - name: Zip AISLER fabrication files
+        run: zip -qq -j "${{ env.Project }}-AISLER.zip" gerbers/*.* docs/bom/*.csv
       - name: Zip documentation and fabrications
         run: zip -qq -r "${{ env.Project }}.zip" docs cad img *.zip
 
@@ -176,10 +178,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: |
+            ${{ env.Project }}-schematic.pdf
             ${{ env.Project }}.zip
             ${{ env.Project }}-JLCPCB.zip
             ${{ env.Project }}-Oshpark.zip
             ${{ env.Project }}-PCBWay.zip
+            ${{ env.Project }}-AISLER.zip
 
       # Archive all the artifacts from output and attach to the action's results.
       # This is so they're made available when this workflow is run manually from the
