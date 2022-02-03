@@ -149,9 +149,11 @@ jobs:
         with:
           name: ${{ env.OutputFolder }}
           path: ${{ env.OutputFolder }}/**
-            
+      
+      # Deploy docs and bom to pages if it's a release
       - name: Deploy pages
         uses: JamesIves/github-pages-deploy-action@v4.2.3
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: ${{ env.OutputFolder }} # The folder the action should deploy.
