@@ -4,14 +4,14 @@
 # will throw a ton of warnings and errors but does actually work.
 outputs:
   # For more information: https://github.com/INTI-CMNB/KiBoM
-  - name: 'print schema'
+  - name: 'print schema pdf'
     comment: "Print schematic (PDF)"
     type: pdf_sch_print
     dir: docs
     options:
       output: '%f-%i.%x' #[string='%f-%i%v.%x'] filename for the output PDF (%i=schematic %x=pdf). Affected by global options.
 
-  - name: 'print schema'
+  - name: 'print schema svg'
     comment: "Print schematic (SVG)"
     type: svg_sch_print
     dir: img
