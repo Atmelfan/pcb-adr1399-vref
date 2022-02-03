@@ -7,10 +7,11 @@
   (title_block
     (title "Cover")
     (date "2022-01-19")
-    (rev "P1A")
+    (rev "P1B")
     (company "GPA Robotics")
     (comment 7 "ADR1399 VRef")
     (comment 8 "https://github.com/Atmelfan/pcb-adr1399-vref")
+    (comment 9 "Licensed under CERN-OHL-S version 2")
   )
 
   (lib_symbols
@@ -888,8 +889,8 @@
   )
 
   (no_connect (at 162.56 69.85) (uuid ad3ae0e8-cd1f-4c18-bad2-924f72c1ef66))
-  (no_connect (at 162.56 85.09) (uuid ad3ae0e8-cd1f-4c18-bad2-924f72c1ef66))
-  (no_connect (at 165.1 85.09) (uuid ad3ae0e8-cd1f-4c18-bad2-924f72c1ef66))
+  (no_connect (at 162.56 85.09) (uuid ad3ae0e8-cd1f-4c18-bad2-924f72c1ef67))
+  (no_connect (at 165.1 85.09) (uuid ad3ae0e8-cd1f-4c18-bad2-924f72c1ef68))
 
   (wire (pts (xy 160.02 52.07) (xy 160.02 57.15))
     (stroke (width 0) (type default) (color 0 0 0 0))
