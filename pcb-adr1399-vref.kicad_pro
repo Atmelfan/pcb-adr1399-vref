@@ -55,9 +55,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        "clearance|90250000|110500000|808f7a5a-2a63-4017-9d6a-d3217aba44a9|7111b132-827b-4363-a82f-490a6a77789b"
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -418,7 +416,7 @@
       "model_mode": 0,
       "workbook_filename": ""
     },
-    "page_layout_descr_file": "${KICAD_USER_TEMPLATE_DIR}/gpa_a4.kicad_wks",
+    "page_layout_descr_file": "kicad-libraries/gpa_a4.kicad_wks",
     "plot_directory": "",
     "spice_adjust_passive_values": false,
     "spice_external_command": "spice \"%I\"",
