@@ -146,8 +146,7 @@ jobs:
       
       # Deploy interactive BOM to pages
       - name: Create index
-        run: |
-          ln -s ${{ env.OutputFolder }}/docs/bom/${{ env.Project }}-ibom.html ${{ env.OutputFolder }}/index.html
+        run: cp -f ${{ env.OutputFolder }}/docs/bom/${{ env.Project }}-ibom.html ${{ env.OutputFolder }}/index.html
       
       - name: Deploy pages
         uses: JamesIves/github-pages-deploy-action@v4.2.3
