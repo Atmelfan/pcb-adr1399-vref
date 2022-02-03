@@ -6,8 +6,8 @@
 
   (title_block
     (title "Cover")
-    (date "2022-01-19")
-    (rev "P1B")
+    (date "%%date%%")
+    (rev "%%version%%")
     (company "GPA Robotics")
     (comment 7 "ADR1399 VRef")
     (comment 8 "https://github.com/Atmelfan/pcb-adr1399-vref")

@@ -59,14 +59,61 @@ jobs:
         id: vars
         run: echo "::set-output name=commit::$(git rev-parse --short HEAD)"
 
-      # Run KiBot with the preflight script
-      - uses: INTI-CMNB/KiBot@master
+            # Get the commit hash.
+      - name: Get GitHub commit hash
+        id: get_version
+        run: echo "::set-output name=version::$(git rev-parse --short HEAD)"
+      # Get the current date and time, in the timezone specified above, for use later.
+      - name: Get current date and time
+        id: get_date
+        run: echo "::set-output name=date::$(TZ='${{ env.Timezone }}' date +'%Y-%m-%d %T')"
+
+      # do string replacement in schematic files
+      - name: Set schematic version
+        uses: jacobtomlinson/gha-find-replace@v1
         with:
-          config: .kibot/preflight.kibot.yaml
+          include: ".*.kicad_sch"
+          find: "%%version%%"
+          replace: ${{ steps.get_version.outputs.version }}
+      
+      - name: Set schematic date
+        uses: jacobtomlinson/gha-find-replace@v1
+        with:
+          include: ".*.kicad_sch"
+          find: "%%date%%"
+          replace: '"${{ steps.get_date.outputs.date }}"'
+
+      # do string replacement in design files
+      - name: Set PCB version
+        uses: jacobtomlinson/gha-find-replace@v1
+        with:
+          include: ".*.kicad_pcb"
+          find: "%%version%%"
+          replace: ${{ steps.get_version.outputs.version }}
+      
+      - name: Set PCB date in page settings
+        uses: jacobtomlinson/gha-find-replace@v1
+        with:
+          include: ".*.kicad_pcb"
+          find: "date %%date%%"
+          replace: 'date "${{ steps.get_date.outputs.date }}"'
+      
+      - name: Set PCB date on PCB layers
+        uses: jacobtomlinson/gha-find-replace@v1
+        with:
+          include: ".*.kicad_pcb"
+          find: "%%date%%"
+          replace: ${{ steps.get_date.outputs.date }}
+
+      # Actually run KiBot to generate all the files.
+      - name: Generate documentation files
+        uses: INTI-CMNB/KiBot@master
+        if: ${{ success() }}
+        with:
+          config: .kibot/documentation.kibot.yaml
           dir: ${{ env.OutputFolder }}
           schema: ${{ env.Project }}.kicad_sch
           board: ${{ env.Project }}.kicad_pcb
-          verbose: 2
 
       # Archive all the artifacts from output and attach to the action's results.
       - name: Archive logfile artifacts
