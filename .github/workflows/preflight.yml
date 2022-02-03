@@ -56,6 +56,11 @@ jobs:
     container: setsoft/kicad_auto:dev_k6
 
     steps:
+      - name: Update system repositories
+        run:  |
+          apt update
+          apt -y install git
+
       - uses: actions/checkout@v2
         with:
           submodules: 'recursive'

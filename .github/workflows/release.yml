@@ -57,6 +57,11 @@ jobs:
 
     # These are all the steps that generate the files.
     steps:
+      - name: Update system repositories
+        run:  |
+          apt update
+          apt -y install git
+
       # Check out the files
       - uses: actions/checkout@v2
         with:
