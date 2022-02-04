@@ -193,6 +193,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: |
+            README.md
+            LICENSE.txt
             docs/${{ env.Project }}-schematic.pdf
             ${{ env.Project }}.zip
             ${{ env.Project }}-JLCPCB.zip
