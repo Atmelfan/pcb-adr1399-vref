@@ -7,6 +7,8 @@ env:
   # good reason to change this you should leave it as KiBotOutput.
   OutputFolder: KiriOutput
   Project: ${{ github.event.repository.name }}
+  
+  OpamVersion: 4.09.1
 
 jobs:
   example_comment_pr:
@@ -16,30 +18,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       
+      - name: Use OCaml ${{ env.OpamVersion }}
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: ${{ env.OpamVersion }}
+      
       - name: Install dependencies
         run: |
-          # Installing dependencies
-          bash -c "$(curl -fsSL https://raw.githubusercontent.com/leoheck/kiri/main/install_dependencies.sh)"
-
-      - name: Install Kiri
-        run: |
-          # Installing KiRI and Kicad Plugin
-          bash -c "$(curl -fsSL https://raw.githubusercontent.com/leoheck/kiri/main/install_kiri.sh)"
-
-      - name: Run Kiri
-        run: |
-          eval $(opam env)
-          export TK_SILENCE_DEPRECATION=1
-          export PATH=${HOME}/.local/share/kiri/submodules/KiCad-Diff/:${PATH}
-          export PATH=${HOME}/.local/share/kiri/bin:${PATH}
+          opam pin add kicadsch .
+          opam pin add plotkicadsch .
+          opam update
+          opam install plotkicadsch
           
-          kiri ${{ env.Project }}.kicad_pro -d ${{ env.OutputFolder }} -l
+          pip3 install pygubu
+          pip3 install python_dateutil
+          pip3 install tk
+
+      - name: Run plotkicadsch
+        run: |
+          plotgitsch -k master ${{ GITHUB_REF }}
       
-      - name: Upload Kiri diff
+      - name: Upload plotkicadsch diff
         if: ${{ failure() }}
         uses: edunad/actions-image@v1.0.1
         with:
-            path: ${{ env.OutputFolder }}/*.svg
+            path: ./*.svg
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             title: 'Kiri diff'
       
@@ -49,4 +52,4 @@ jobs:
         if: ${{ always() }}
         with:
           name: ${{ env.OutputFolder }}
-          path: ${{ env.OutputFolder }}/**
+          path: ./*.svg
