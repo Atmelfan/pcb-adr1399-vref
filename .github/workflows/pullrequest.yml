@@ -30,8 +30,8 @@ jobs:
         run: |
           eval $(opam env)
           export TK_SILENCE_DEPRECATION=1
-          export PATH=${HOME}/.local/share/kiri/submodules/KiCad-Diff/:PATH
-          export PATH=${HOME}/.local/share/kiri/bin:PATH
+          export PATH=${HOME}/.local/share/kiri/submodules/KiCad-Diff/:${PATH}
+          export PATH=${HOME}/.local/share/kiri/bin:${PATH}
           
           kiri ${{ env.Project }}.kicad_pro -d ${{ env.OutputFolder }} -l
       
