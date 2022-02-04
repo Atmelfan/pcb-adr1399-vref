@@ -127,7 +127,7 @@ jobs:
       - name: Generate documentation files
         uses: INTI-CMNB/KiBot@master
         with:
-          verbose: 3
+          #verbose: 3
           config: .kibot/documentation.kibot.yaml
           dir: ${{ env.OutputFolder }}
           schema: ${{ env.Project }}.kicad_sch
@@ -136,7 +136,7 @@ jobs:
       - name: Generate fabrication files
         uses: INTI-CMNB/KiBot@master
         with:
-          verbose: 3
+          #verbose: 3
           config: .kibot/fabrications.kibot.yaml
           dir: ${{ env.OutputFolder }}
           schema: ${{ env.Project }}.kicad_sch
@@ -193,7 +193,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: |
-            ${{ env.Project }}-schematic.pdf
+            docs/${{ env.Project }}-schematic.pdf
             ${{ env.Project }}.zip
             ${{ env.Project }}-JLCPCB.zip
             ${{ env.Project }}-Oshpark.zip
