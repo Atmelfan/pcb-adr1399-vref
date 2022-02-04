@@ -1,10 +1,4 @@
-on:
-  pull_request:
-    paths:
-      - ".*.kicad_sch"
-      - ".*.kicad_pcb"
-      - ".kibot/*.kibot.yaml"
-      - ".github/workflows/*.yml"
+on: pull_request
 
 env:
   # Set this to your local timezone. See https://www.wikiwand.com/en/List_of_tz_database_time_zones for valid strings.
