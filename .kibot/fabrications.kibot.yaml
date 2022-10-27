@@ -71,7 +71,7 @@ filters:
 # This imports the KiBot scripts that actually do all the generation. If you want to
 # generate different things/more things then change these to point to other .kibot.yaml files.
 import:
-  - file: includes/bom.kibot.yaml
+#  - file: includes/bom.kibot.yaml
   - file: includes/drills.kibot.yaml
   - file: includes/gerbers_jlcpcb.kibot.yaml
   - file: includes/gerbers.kibot.yaml
