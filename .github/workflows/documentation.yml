@@ -1,0 +1,83 @@
+name: "Documentation"
+
+on:
+  push:
+  pull_request:
+    paths:
+      - ".*.kicad_sch"
+      - ".*.kicad_pcb"
+      - ".github/workflows/*.yml"
+
+env:
+  # Set this to your local timezone. See https://www.wikiwand.com/en/List_of_tz_database_time_zones for valid strings.
+  Timezone: UTC
+  # Set this to the output folder for all of the generated files. Unless you have a very
+  # good reason to change this you should leave it as KiBotOutput.
+  OutputFolder: docs
+  Project: ${{ github.event.repository.name }}
+
+
+jobs:
+  Kicad:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Kicad
+        run: |
+          add-apt-repository --yes ppa:kicad/kicad-dev-nightly
+          apt update
+          apt install kicad-nightly
+      
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      
+      # Get the version of the GitHub release for use later.
+      - name: Get GitHub release version
+        id: get_github_version
+        uses: battila7/get-version-action@v2
+        if: startsWith(github.ref, 'refs/tags/')
+
+      - name: Store GitHub release version
+        id: save_github_version
+        run: echo "version=${{ steps.get_github_version.outputs.version }}" >> $GITHUB_ENV
+        if: startsWith(github.ref, 'refs/tags/')
+
+      # Not a release
+      - name: Store workflow version
+        id: save_workflow_version
+        run: echo "version=$(git describe HEAD)" >> $GITHUB_ENV
+        if: startsWith(github.ref, 'refs/tags/') == false
+
+      # Get the current date and time, in the timezone specified above, for use later.
+      - name: Get current date and time
+        id: get_date
+        run: echo "::set-output name=date::$(TZ='${{ env.Timezone }}' date +'%Y-%m-%d %T')"
+      
+      # do string replacement in schematic files
+      - name: Set schematic version
+        uses: jacobtomlinson/gha-find-replace@v1
+        with:
+          include: ".*.kicad_sch"
+          find: "%%version%%"
+          replace: ${{ env.version }}
+      - name: Set schematic date
+        uses: jacobtomlinson/gha-find-replace@v1
+        with:
+          include: ".*.kicad_sch"
+          find: "%%date%%"
+          replace: ${{ steps.get_date.outputs.date }}
+
+      # Export schematics
+      - name: Export
+        run: |
+          kicad-cli-nightly sch export pdf ${{ env.Project }}.kicad_sch --output ${{ env.OutputFolder }}
+          kicad-cli-nightly sch export pdf ${{ env.Project }}.kicad_sch --output ${{ env.OutputFolder }}
+      
+      # Archive all the artifacts from output and attach to the action's results.
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: ${{ env.OutputFolder }}
+          path: ${{ env.OutputFolder }}/**
